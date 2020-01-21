@@ -7,7 +7,7 @@ require 'json'
 module CloudFlare
   class UpdateDns
     include HTTParty
-    debug_output $stdout
+    # debug_output $stdout
     base_uri 'https://api.cloudflare.com/client/v4'
 
     def initialize
@@ -43,7 +43,8 @@ module CloudFlare
           'type' => record['type'],
           'name' => record['name'],
           'content' => new_ip,
-          'ttl' => {}
+          'ttl' => {},
+          'proxied' => true
         }.to_json
       }
       self.class.put("/zones/#{identifier}/dns_records/#{record['id']}",
@@ -61,7 +62,7 @@ module CloudFlare
           puts 'Updating DNS Record type' \
                " #{record['type']} for domain #{zone['name']}" \
                " with the new content #{new_ip}"
-          update_dns zone['id'], record, new_ip
+          puts update_dns zone['id'], record, new_ip
         end
       end
     end
