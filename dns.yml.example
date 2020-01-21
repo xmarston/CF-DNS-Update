@@ -1,7 +1,8 @@
-key: API_KEY
-email: ACCOUNT_EMAIL
-domains:
-  - DOMAIN_1
+---
+command: "curl -s https://canihazip.com/s"
 dns_record_types:
-  - RECORD_TYPE_1
-command: COMMAND_FOR_CONTENT e.g.: curl -s https://canihazip.com/s
+  - TYPE1
+domains:
+  - DOMAIN1
+email: CF_EMAIL
+key: CF_KEY

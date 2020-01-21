@@ -43,8 +43,7 @@ module CloudFlare
           'type' => record['type'],
           'name' => record['name'],
           'content' => new_ip,
-          'ttl' => {},
-          'proxied' => true
+          'ttl' => {}
         }.to_json
       }
       self.class.put("/zones/#{identifier}/dns_records/#{record['id']}",
@@ -56,7 +55,10 @@ module CloudFlare
         next unless domain == zone['name']
 
         list_dns_records(zone['id'])['result'].map do |record|
-          next unless @config['dns_record_types'].include? record['type']
+          unless @config['dns_record_types'].include?(record['type']) \
+            && (record['name'] == domain)
+            next
+          end
 
           new_ip = `#{@config['command']}`
           puts 'Updating DNS Record type' \
