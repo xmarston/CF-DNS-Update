@@ -1,0 +1,7 @@
+key: API_KEY
+email: ACCOUNT_EMAIL
+domains:
+  - DOMAIN_1
+dns_record_types:
+  - RECORD_TYPE_1
+command: COMMAND_FOR_CONTENT e.g.: curl -s https://canihazip.com/s
