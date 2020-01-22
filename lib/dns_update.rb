@@ -44,11 +44,11 @@ module CloudFlare
           'name' => record['name'],
           'content' => new_ip,
           'ttl' => 1,
-	  'proxied' => true
+          'proxied' => true
         }.to_json
       }
       self.class.put("/zones/#{identifier}/dns_records/#{record['id']}",
-                       opts.merge!(@options))
+                     opts.merge!(@options))
     end
 
     def update_zone_dns(domain)
