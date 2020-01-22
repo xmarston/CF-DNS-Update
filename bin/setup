@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'yaml'
+require 'cli/ui'
+
+module CloudFlare
+  class AutoSetup
+    def initialize
+      @email = CLI::UI.ask('Cloudflare Email')
+      @api_key = CLI::UI::Prompt.ask_password('Cloudflare Key')
+      @domains = CLI::UI.ask('Domains to update (comma separated list)')
+      @records_type = CLI::UI.ask('Type of records to update (comma separated list)')
+      @command = CLI::UI.ask('Command to run when updating the content of the record')
+
+      run
+    end
+
+    def run
+      read_example
+      'Setup done correctly!' if set_correct_config
+    end
+
+    def read_example
+      @example_config = YAML.load_file('./dns.yml.example')
+    end
+
+    def set_correct_config
+      @example_config['key'] = @api_key
+      @example_config['email'] = @email
+      @example_config['domains'] = @domains.split(',')
+      @example_config['dns_record_types'] = @records_type.split(',')
+      @example_config['command'] = @command
+
+      File.write('./dns.yml', @example_config.to_yaml)
+    end
+  end
+end
+
+CloudFlare::AutoSetup.new.run
