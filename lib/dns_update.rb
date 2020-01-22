@@ -43,7 +43,8 @@ module CloudFlare
           'type' => record['type'],
           'name' => record['name'],
           'content' => new_ip,
-          'ttl' => 1
+          'ttl' => 1,
+	  'proxied' => true
         }.to_json
       }
       self.class.put("/zones/#{identifier}/dns_records/#{record['id']}",
