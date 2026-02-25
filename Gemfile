@@ -3,5 +3,5 @@
 source 'https://rubygems.org'
 
 gem 'cli-ui'
-gem 'httparty'
-gem 'rubocop'
+gem 'httparty', '~> 0.22'
+gem 'rubocop', require: false
